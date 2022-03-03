@@ -8,7 +8,7 @@ export default class TestCallApi extends Component {
     }
 
     callApi(){
-        fetch("http://localhost:9000/testApi")
+        fetch("http://localhost:3001/api/check")
             .then(res => res.text())
             .then(res => this.setState({apiResponse: res}))
     }

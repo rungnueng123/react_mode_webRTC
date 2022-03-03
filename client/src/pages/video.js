@@ -14,7 +14,8 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import socket from '../components/socket';
+import socket from '../components/socket';
+import io from 'socket.io-client'
 
 const Video = (props) => {
   const roomRef = useRef();
@@ -22,32 +23,32 @@ const Video = (props) => {
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState('');
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   socket.on('FE-error-user-exist', ({ error }) => {
-  //     if (!error) {
-  //       const roomName = roomRef.current.value;
-  //       const userName = userRef.current.value;
+    socket.on('FE-error-user-exist', ({ error }) => {
+      if (!error) {
+        const roomName = roomRef.current.value;
+        const userName = userRef.current.value;
 
-  //       sessionStorage.setItem('user', userName);
-  //       props.history.push(`/room/${roomName}`);
-  //     } else {
-  //       setErr(error);
-  //       setErrMsg('User name already exist');
-  //     }
-  //   });
-  // }, [props.history]);
+        sessionStorage.setItem('user', userName);
+        props.history.push(`/room/${roomName}`);
+      } else {
+        setErr(error);
+        setErrMsg('User name already exist');
+      }
+    });
+  }, [props.history]);
 
   function clickJoin() {
-    // const roomName = roomRef.current.value;
-    // const userName = userRef.current.value;
+    const roomName = roomRef.current.value;
+    const userName = userRef.current.value;
 
-    // if (!roomName || !userName) {
-    //   setErr(true);
-    //   setErrMsg('Enter Room Name or User Name');
-    // } else {
-    //   socket.emit('BE-check-user', { roomId: roomName, userName });
-    // }
+    if (!roomName || !userName) {
+      setErr(true);
+      setErrMsg('Enter Room Name or User Name');
+    } else {
+      socket.emit('BE-check-user', { roomId: roomName, userName });
+    }
   }
 
   return (
