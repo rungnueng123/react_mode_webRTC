@@ -55,6 +55,16 @@ const BottomBar = ({
           </div>
           Audio
         </CameraButton>
+        <CameraButton onClick={toggleCameraAudio} data-switch='record'>
+          <div>
+            {userVideoAudio.audio ? (
+              <FaIcon className='fas fa-dot-circle'></FaIcon>
+            ) : (
+              <FaIcon className='fas fa-dot-circle red-color'></FaIcon>
+            )}
+          </div>
+          Record
+        </CameraButton>
       </Left>
       <Center>
         <ChatButton onClick={clickChat}>
@@ -183,6 +193,9 @@ const CameraButton = styled.div`
   }
 
   .fa-video-slash {
+    color: #ee2560;
+  }
+  .red-color {
     color: #ee2560;
   }
 `;
